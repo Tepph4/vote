@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editevent',
@@ -55,7 +56,7 @@ export class EditeventComponent implements OnInit {
     
 
     this.http.put("http://localhost:3000/editevent/editEvent/"+this.router.snapshot.params['id'],bodyData,{responseType:'text'}).subscribe(data => {
-      alert("Update Event Success!");
+      Swal.fire('Upadte update', 'successfully','success')
 
       this.title = "";
       this.describe = "";

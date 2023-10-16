@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-manage-event',
@@ -28,7 +29,7 @@ export class ManageEventComponent implements OnInit{
 
   deleteEvent(id:any) {
     this.http.delete('http://localhost:3000/manageEvent/deleteEvent/'+id).subscribe(data => {
-      alert("ลบข้อมูลเรียบร้อย");
+      Swal.fire('delete', 'successfully','warning')
       this.refreshData();
     })
   }

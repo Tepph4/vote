@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { RegisterService } from 'src/app/services/register/register.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-adminadduser',
@@ -75,18 +76,18 @@ export class AdminadduserComponent implements OnInit{
     if (this.adduserForm.valid){
       console.log("user create")
     this.rs.CreateUser(this.adduserForm.value).subscribe(      
-      data => {
-        alert('Create User successfully');
-        console.log("user create sucss")
-        this.adduserForm.reset();       
+      data => {        
+        Swal.fire('Create !', 'successfully','success').then(()=>{            
+          this.adduserForm.reset();
+        })                
       },
       err => {
         console.log(err);
       }     
     );
     }
-    else{
-      alert('Cannot create user');
+    else{      
+      Swal.fire('Cannot create user!', 'sorry','warning')
     }
     console.log(this.adduserForm.value)
   }
@@ -98,8 +99,8 @@ export class AdminadduserComponent implements OnInit{
       var pattern = /image-*/;
       const reader = new FileReader();
 
-      if (!file.type.match(pattern)) {
-        alert('invalid format')
+      if (!file.type.match(pattern)) {        
+        Swal.fire('invalid format!', 'sorry','warning')
         this.adduserForm.reset();
       }
       else {

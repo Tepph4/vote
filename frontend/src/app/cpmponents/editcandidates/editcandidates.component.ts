@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router'
 import { AddcandidatesService } from 'src/app/services/addcandidates/addcandidates.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editcandidates',
@@ -64,7 +65,7 @@ export class EditcandidatesComponent implements OnInit {
       console.log("user create")
       this.ec.updateCandi(this.editcandidatesForm.value,this.router.snapshot.params['id']).subscribe(
         data => {
-          alert('Upadte update successfully');
+          Swal.fire('Upadte update', 'successfully','success')         
           console.log("update user sucss")
           //this.editcandidatesForm.reset();         
         },
@@ -110,6 +111,7 @@ export class EditcandidatesComponent implements OnInit {
       var pattern = /image-*/;
       const reader = new FileReader();
       if (!file.type.match(pattern)) {
+        Swal.fire('invalid format', 'Error','warning') 
         alert('invalid format')
         this.editcandidatesForm.reset();
       }

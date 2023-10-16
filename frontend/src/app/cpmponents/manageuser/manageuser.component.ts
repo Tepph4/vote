@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-manageuser',
@@ -28,7 +29,7 @@ export class ManageuserComponent implements OnInit{
 
   deleteUser(id:any) {
     this.http.delete('http://localhost:3000/user/deleteUser/'+id).subscribe(data => {
-      alert("ลบข้อมูลเรียบร้อย");
+      Swal.fire('delete', 'successfully','warning')
       this.refreshData();
     })
   }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router'
 import { map } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addcandidates',
@@ -47,10 +48,14 @@ export class AddcandidatesComponent implements OnInit {
       
     this.CreateCandi(this.addcandidatesForm.value).subscribe(      
       data => {
-        alert('Create candidates successfully');
-        console.log("candidates create sucss")        
         this.addEventJCandidate(data)
-        this.addcandidatesForm.reset();        
+        Swal.fire('Create candidates !', 'success','success').then(()=>{
+          this.addcandidatesForm.reset(); 
+        })
+        //alert('Create candidates successfully');
+        console.log("candidates create sucss")        
+       
+               
       },
       err => {
         console.log(err);
@@ -58,7 +63,7 @@ export class AddcandidatesComponent implements OnInit {
     );
     }
     else{
-      alert('Cannot create candidates');
+      Swal.fire('Cannot create !', 'sorry','warning')
     }      
   }
   CreateCandi(userdata: any){
@@ -77,7 +82,7 @@ export class AddcandidatesComponent implements OnInit {
      };
 
     this.http.post("http://localhost:3000/editevent/addEventAcandidate",bodyData2,{responseType:'text'}).subscribe(data => {
-      alert("Create Event Success!");
+      Swal.fire('', 'success','success')
 
     })
 
@@ -89,7 +94,7 @@ export class AddcandidatesComponent implements OnInit {
       const reader = new FileReader();
 
       if (!file.type.match(pattern)) {
-        alert('invalid format')
+        Swal.fire('invalid format !', 'Error','warning')        
         this.addcandidatesForm.reset();
       }
       else {

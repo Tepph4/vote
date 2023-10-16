@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router'
 import { Emitter } from 'src/app/emitter/emitter';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -88,7 +89,7 @@ export class VoteComponent implements OnInit {
     console.log(bodyData)
 
     this.http.post("http://localhost:3000/userJcandidate/addUserJcandidate",bodyData,{responseType:'text'}).subscribe(data => {
-      alert("บันทึกผลโหวตเรียบร้อย!");
+      Swal.fire('Save', 'successfully','success')      
       
     })
   }

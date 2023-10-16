@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-userresetpassword',
@@ -30,8 +31,8 @@ export class UserresetpasswordComponent implements OnInit {
      };
 
     this.http.put("http://localhost:3000/user/checkUserBy",bodyData2,{responseType:'text'}).subscribe(data => {
-      alert("Update password Success!");
-
+      
+      Swal.fire('Update password', 'successfully','success')  
       console.log(data);
 
     })

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-edit-uesr',
@@ -75,9 +76,10 @@ export class AdminEditUesrComponent implements OnInit {
       console.log("user create")
       this.ad.updateUser(this.updateForm.value,this.router.snapshot.params['id']).subscribe(
         data => {
-          alert('Upadte update successfully');
-          console.log("update user sucss")
-          this.updateForm.reset();         
+          Swal.fire('Upadte !', 'successfully','success').then(()=>{            
+            this.updateForm.reset();
+          }) 
+          console.log("update user sucss")          
         },
         err => {
           console.log(err);
@@ -86,6 +88,9 @@ export class AdminEditUesrComponent implements OnInit {
     }
     else {
       alert('Cannot create user');
+      Swal.fire('Cannot create user!', 'soryy','warning').then(()=>{            
+        this.updateForm.reset();
+      })
     }
     
   }
@@ -96,8 +101,8 @@ export class AdminEditUesrComponent implements OnInit {
       const file = e.target.files[0];
       var pattern = /image-*/;
       const reader = new FileReader();
-      if (!file.type.match(pattern)) {
-        alert('invalid format')
+      if (!file.type.match(pattern)) {        
+        Swal.fire('invalid format!', 'sorry','warning')
         this.updateForm.reset();
       }
       else {

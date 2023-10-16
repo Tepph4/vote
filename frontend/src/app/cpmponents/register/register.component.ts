@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from './../../services/register/register.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -73,11 +74,14 @@ export class RegisterComponent implements OnInit{
     //this.rs.CreateUser(this.adduserForm.value)
      this.http.post<any>('http://localhost:3000/user/addUser' ,userdata,{withCredentials:true}).subscribe(      
       () => {
-        alert('Create User successfully');
-        console.log("user create sucss")
-        this.router.navigate(['login'])
-        this.adduserForm.reset();
         this.adduserForm.value.role = 'user'
+        Swal.fire('Create success!', '','success').then(()=>{
+        this.router.navigate(['login'])
+        this.adduserForm.reset();        
+        })
+        //alert('Create User successfully');        
+        console.log("user create sucss")
+        
       },
       err => {
         console.log(err);
@@ -85,7 +89,7 @@ export class RegisterComponent implements OnInit{
     );
     }
     else{
-      alert('Cannot create user');
+      Swal.fire('Sorry !', '','warning')
     }
     console.log(this.adduserForm.value)
   }

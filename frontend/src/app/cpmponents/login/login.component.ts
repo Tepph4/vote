@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.lg.login(this.loginForm.value).subscribe(        
         data => {
-          if (data.status === true) {
-          
+          if (data.status === true) {          
           Swal.fire('Login success!', 'welcome!!', 'success').then(() => {
             this.router.navigate(['main']).then(() => {
               location.reload();

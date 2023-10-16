@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-userprofile',
@@ -72,11 +73,11 @@ export class UserprofileComponent implements OnInit{
   UpdateUser() {     
     console.log(this.updateForm.value)
     console.log("valid status : "+this.updateForm.valid)
-    if (true) {
+    if (this.updateForm.value) {
       console.log("user create")
       this.ad.updateUser(this.updateForm.value,this.router.snapshot.params['id']).subscribe(
         data => {
-          alert('Upadte User successfully');
+          Swal.fire('delete', 'successfully','success')          
           console.log("update user sucss")
           this.updateForm.reset();         
         },
@@ -86,7 +87,7 @@ export class UserprofileComponent implements OnInit{
       );
     }
     else {
-      alert('Cannot create user');
+      Swal.fire('invalid format', 'Error','warning')    
     }
     
   }
@@ -98,7 +99,7 @@ export class UserprofileComponent implements OnInit{
       var pattern = /image-*/;
       const reader = new FileReader();
       if (!file.type.match(pattern)) {
-        alert('invalid format')
+        Swal.fire('invalid format', 'Error','warning')        
         this.updateForm.reset();
       }
       else {
